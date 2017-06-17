@@ -42,13 +42,19 @@ public final class Search {
 	 * Performs a Depth-First-Search on the state passed to it. It stops
 	 * search at the first state that is a goal state. It will return
 	 * the actions that must be taken to reach that goal state in order.
-	 * All steps between states are considered the same cost.
+	 * All steps between states are considered the same cost. If the {@code startState}
+	 * is null, null is returned.
 	 * 
 	 * @param startState The initial state of the search
 	 * @return An array of actions that lead to the goal state.
 	 */
 	public static Action[] dfsG(State startState){
 		
+		//avoid null pointer exception
+		if(startState == null)
+			return null;
+
+		//reset fringe and visited array lists
 		Search.reset(startState);
 		
 		//the number of nodes that have been expanded
@@ -93,12 +99,18 @@ public final class Search {
 	 * Performs a Breadth-First-Search on the state passed to it. It stops
 	 * search at the first state that is a goal state. It will return
 	 * If all costs between states are the same, the path returned will be optimal.
+	 * If {@code startState} is null, null is returned.
 	 * 
 	 * @param startState The initial state to start the search.
 	 * @return The path of actions in order to reach the goal state
 	 */
 	public static Action[] bfsG(State startState){
 		
+		//avoid null pointer exception
+		if(startState == null)
+			return null;
+		
+		//reset fringe and visited array lists
 		Search.reset(startState);
 		
 		//the number of nodes that have been expanded
@@ -144,13 +156,19 @@ public final class Search {
 	/**
 	 * Performs an A-Star search on the state passed. The path to a goal state
 	 * will be optimal. It can find the optimal path with different costs between
-	 * states. This search also uses a heuristic to find the goal state.
+	 * states. This search also uses a heuristic to find the goal state. If
+	 * {@code startState} is null, null is returned.
 	 * 
 	 * @param startState The initial state to start the search.
 	 * @return The optimal path to the goal state.
 	 */
 	public static Action[] aStar(State startState){
+
+		//avoid null pointer exception
+		if(startState == null)
+			return null;
 		
+		//reset fringe and visited array lists
 		Search.reset(startState);
 		
 		//the number of nodes that have been expanded
@@ -223,10 +241,12 @@ public final class Search {
 	 */
 	private static boolean hasVisited(State checkState){
 		
+		//if "checkState" is anywhere in "visited" than it has been visited before
 		for(State s : visited)
-			if(s.equals(checkState))
+			if(s.equalsState(checkState))
 				return true;
 		
+		//if the program reaches this point, then check state is not in "visited"
 		return false;
 		
 	}

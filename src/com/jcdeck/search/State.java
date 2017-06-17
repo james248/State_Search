@@ -20,6 +20,11 @@ public interface State {
 	 * the this should return null. If there are no children states and
 	 * it is not a goal state an empty array should be returned.
 	 * 
+	 * <p>
+	 * 
+	 * This should also make sure each child state has recorded the actions
+	 * taken to reach it so that {@link getPath} can return an accurate path.
+	 * 
 	 * @return all possible child states reachable from this state.
 	 */
 	public State[] expand();
@@ -36,7 +41,7 @@ public interface State {
 	
 	/**
 	 * This will return a list of objects that have implemented Action.
-	 * These objects represent the path to get to this state.
+	 * These objects represent the path to get to this state form the start state.
 	 * 
 	 * @return The Path to get to this state.
 	 */
@@ -49,5 +54,16 @@ public interface State {
 	 * @return The cost of getting to this state
 	 */
 	public double getCost();
+	
+	
+	/**
+	 * This should have the same effect as the equals(Object other) methods
+	 * in java.lang.object. It insures that the search algorithm will not
+	 * go in circles.
+	 * 
+	 * @param other another state to test equivalence
+	 * @return true if this state is the same as {@code other}
+	 */
+	public boolean equalsState(State other);
 	
 }
